@@ -1,55 +1,133 @@
-# 🛡️ SPA Security Demo
+# 🛡️ SPA Security Lab
 
 An interactive Single Page Application demonstrating common web security vulnerabilities and their mitigations. Built as a Final Year Project to educate developers about secure coding practices.
 
-![Security Demo](https://img.shields.io/badge/Security-Educational-red)
-![React](https://img.shields.io/badge/React-18-blue)
-![Node.js](https://img.shields.io/badge/Node.js-Express-green)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen)
+![Security](https://img.shields.io/badge/Security-Educational-ef4444)
+![React 19](https://img.shields.io/badge/React-19-61dafb)
+![Tailwind v4](https://img.shields.io/badge/Tailwind_CSS-v4-06b6d4)
+![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-Components-fafafa)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47a248)
 
-## 📋 Overview
+---
 
-This project provides hands-on demonstrations of various security vulnerabilities commonly found in Single Page Applications. Each vulnerability has both a **vulnerable** and **secure** implementation, allowing users to understand the attack vectors and learn proper mitigation techniques.
+## Overview
 
-## 🎯 Security Vulnerabilities Demonstrated
+This project provides hands-on demonstrations of security vulnerabilities commonly found in Single Page Applications. Each vulnerability has both a **vulnerable** and **secure** implementation, letting users understand attack vectors and learn proper mitigation techniques in a safe, controlled environment.
 
-| Vulnerability | Description | OWASP Category |
-|--------------|-------------|----------------|
-| **XSS (Cross-Site Scripting)** | Inject malicious scripts into web pages | A7:2017 |
-| **IDOR (Insecure Direct Object Reference)** | Access unauthorized resources by manipulating IDs | A5:2017 |
-| **NoSQL Injection** | Bypass authentication using MongoDB operators | A1:2017 |
-| **Brute Force / Rate Limiting** | Unlimited login attempts without protection | A2:2017 |
-| **Insecure Token Storage** | JWT stored in localStorage vs HttpOnly cookies | A3:2017 |
+### Vulnerabilities Demonstrated
 
-## ✨ Features
+| Vulnerability | Description | OWASP |
+|---|---|---|
+| **XSS** (Cross-Site Scripting) | Inject malicious scripts into web pages via comments, URLs, or DOM manipulation | A03:2021 |
+| **IDOR** (Insecure Direct Object Reference) | Access unauthorized resources by manipulating object IDs | A01:2021 |
+| **NoSQL Injection** | Bypass authentication using MongoDB operator injection (`$gt`, `$ne`) | A03:2021 |
+| **Brute Force / Rate Limiting** | Unlimited login attempts without throttling or lockout | A07:2021 |
+| **Insecure Token Storage** | JWT stored in localStorage vs HttpOnly cookies | A07:2021 |
 
-- 🔓 **Vulnerable Mode**: Demonstrates how attacks work in real-time
-- 🔒 **Secure Mode**: Shows proper implementation with security controls
-- 📊 **Interactive Demos**: Test payloads and see immediate results
-- 🎨 **Modern UI**: Dark theme with glassmorphism design
-- 📱 **Responsive**: Works on desktop and mobile devices
-- 🔐 **Authentication System**: Full login/register with JWT
+---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
-- React 18 with Vite
-- Lucide React (icons)
-- Custom CSS with CSS Variables
+
+| Technology | Version | Purpose |
+|---|---|---|
+| React | 19.2 | UI component library |
+| Vite | 7.2 | Build tool & dev server |
+| Tailwind CSS | 4.2 | Utility-first CSS (v4 CSS-first config) |
+| shadcn/ui | — | Accessible component primitives (new-york style) |
+| class-variance-authority | 0.7 | Component variant management |
+| Lucide React | 0.562 | Icon library |
 
 ### Backend
-- Node.js with Express
-- MongoDB with Mongoose
-- JWT for authentication
-- express-rate-limit for rate limiting
-- bcryptjs for password hashing
 
-## 📦 Installation
+| Technology | Version | Purpose |
+|---|---|---|
+| Node.js | 18+ | Runtime |
+| Express | 4.18 | Web framework |
+| MongoDB + Mongoose | 8.0 | Database + ODM |
+| bcryptjs | 2.4 | Password hashing |
+| jsonwebtoken | 9.0 | JWT authentication |
+| express-rate-limit | 8.2 | Rate limiting middleware |
+| helmet | 7.1 | Security headers (CSP, etc.) |
+| cookie-parser | 1.4 | HttpOnly cookie handling |
+
+---
+
+## Project Structure
+
+```
+fyp/
+├── src/
+│   ├── components/
+│   │   ├── ui/                          # shadcn/ui primitives
+│   │   │   ├── button.jsx
+│   │   │   ├── card.jsx
+│   │   │   ├── input.jsx
+│   │   │   ├── badge.jsx
+│   │   │   ├── alert.jsx
+│   │   │   └── separator.jsx
+│   │   ├── layout/
+│   │   │   ├── AppShell.jsx             # Sidebar + content wrapper
+│   │   │   └── Sidebar.jsx              # Navigation sidebar
+│   │   ├── auth/
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   ├── pages/
+│   │   │   ├── HomePage.jsx             # Landing page
+│   │   │   └── DashboardPage.jsx        # Main dashboard with demos
+│   │   ├── demos/
+│   │   │   ├── XSSDemo.jsx              # XSS payload arsenal + comparison
+│   │   │   ├── IDORDemo.jsx             # Object reference demo
+│   │   │   ├── RateLimitDemo.jsx        # Brute force simulation
+│   │   │   └── NoSQLInjectionDemo.jsx   # Query injection demo
+│   │   └── shared/
+│   │       ├── Terminal.jsx             # Reusable terminal output
+│   │       └── SecurityModeToggle.jsx   # Vulnerable/Secure switch
+│   ├── lib/
+│   │   ├── api.js                       # Backend API client
+│   │   └── utils.js                     # cn() utility (tailwind-merge)
+│   ├── App.jsx                          # Root component + routing
+│   ├── main.jsx                         # React entry point
+│   └── index.css                        # Tailwind v4 theme + animations
+├── server/
+│   ├── config/
+│   │   └── db.js                        # MongoDB connection
+│   ├── middleware/
+│   │   ├── auth.js                      # JWT authentication
+│   │   └── rate-limit.js               # Rate limiting
+│   ├── models/
+│   │   ├── User.js                      # User schema
+│   │   └── Comment.js                   # Comment schema
+│   ├── routes/
+│   │   ├── auth.js                      # Login, register, logout
+│   │   ├── users.js                     # User management
+│   │   ├── comments.js                  # Comments (XSS surface)
+│   │   ├── admin.js                     # Admin-only routes
+│   │   ├── vulnerable-users.js          # IDOR demo endpoints
+│   │   └── vulnerable-auth.js           # NoSQL + rate limit demos
+│   ├── scripts/
+│   │   └── seed.js                      # Database seeder
+│   ├── .env.example
+│   └── server.js                        # Express entry point
+├── components.json                       # shadcn/ui config
+├── jsconfig.json                         # Path aliases (@/*)
+├── vite.config.js                        # Vite + Tailwind + proxy
+├── index.html
+├── package.json
+└── THESIS_REFERENCE.md                   # Full thesis documentation
+```
+
+---
+
+## Installation
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB (local or Atlas)
-- npm or yarn
+
+- **Node.js** v18 or higher
+- **MongoDB** (local instance or Atlas)
+- **npm**
 
 ### Setup
 
@@ -70,132 +148,171 @@ This project provides hands-on demonstrations of various security vulnerabilitie
    npm install
    ```
 
-4. **Configure environment variables**
+4. **Configure environment**
    ```bash
-   # In /server directory, create .env file
+   # In /server directory
    cp .env.example .env
    ```
-   
-   Edit `.env` with your configuration:
+
+   Edit `server/.env`:
    ```env
-   PORT=5000
+   PORT=5001
    MONGODB_URI=mongodb://localhost:27017/spa-security-demo
    JWT_SECRET=your-super-secret-jwt-key
    NODE_ENV=development
    ```
 
-5. **Seed the database (optional)**
+5. **Seed the database** (optional)
    ```bash
    cd server
-   node scripts/seed.js
+   npm run seed
    ```
 
-6. **Run the application**
-   
-   In the root directory:
+6. **Start the backend**
    ```bash
+   cd server
    npm run dev
    ```
-   
-   This starts both frontend (Vite) and backend (Express) concurrently.
 
-## 🚀 Usage
+7. **Start the frontend** (in a separate terminal)
+   ```bash
+   # From project root
+   npm run dev
+   ```
+
+   The frontend runs at `http://localhost:5173` and proxies API calls to `http://localhost:5001`.
+
+---
+
+## Usage
 
 ### Default Accounts (after seeding)
+
 | Username | Password | Role |
-|----------|----------|------|
-| admin | admin123 | Admin |
-| user | user123 | User |
+|---|---|---|
+| `admin` | `admin123` | Admin |
+| `user` | `user123` | User |
 
-### Testing Vulnerabilities
+### Security Mode Toggle
 
-#### XSS Demo
-1. Navigate to the XSS section
-2. Select a payload from the arsenal or enter custom payload
-3. Click "INJECT" to see how it executes in vulnerable mode
-4. Compare with secure mode where it's escaped
+The app has a global **Vulnerable / Secure** toggle in the sidebar. Switch between modes to see how each vulnerability behaves with and without protections.
 
-#### IDOR Demo
+### Demo Walkthroughs
+
+#### XSS (Cross-Site Scripting)
+1. Log in and navigate to the Dashboard
+2. Scroll to the **XSS Demo** panel
+3. Pick a payload from the **Payload Arsenal** (e.g., Image Error) or type a custom one
+4. Click **INJECT** to see side-by-side comparison: vulnerable output executes the script, secure output escapes it
+5. Try posting XSS payloads in the **Comments** section with Vulnerable mode on
+
+#### IDOR (Insecure Direct Object Reference)
 1. Log in as a regular user
-2. Click "List All Users" - Vulnerable shows all, Secure shows only your profile
-3. Try accessing another user's ID to see the difference
+2. In the **IDOR Demo**, click **🔓 Vulnerable (No Check)** to list all users
+3. Copy another user's ID and try **🔓 Vulnerable Access** — you'll see their data
+4. Switch to **🔒 Secure Access** — access is denied unless you own the profile
+
+#### Rate Limiting / Brute Force
+1. Click **🔓 Attack (No Protection)** — all 8 password attempts go through
+2. Click **🔒 Attack (Rate Limited)** — the server blocks after 5 attempts with `429 Too Many Requests`
 
 #### NoSQL Injection
-1. Enter a target username (e.g., "admin")
-2. Click "Inject (Vulnerable)" - bypasses password check
-3. Click "Inject (Sanitized)" - blocks the attack
+1. Enter a target username (default: `admin`)
+2. Click **🔓 Inject (Vulnerable)** — authentication bypassed using `{"$gt": ""}` operator
+3. Click **🔒 Inject (Sanitized)** — the injection is detected and blocked
 
-#### Rate Limiting
-1. Click "Attack (No Protection)" - unlimited attempts
-2. Click "Attack (Rate Limited)" - blocks after 5 attempts
+---
 
-## 📁 Project Structure
+## API Reference
 
-```
-fyp/
-├── src/                    # Frontend source
-│   ├── components/
-│   │   └── VulnerableSPADemo.jsx
-│   ├── App.jsx
-│   └── index.css
-├── server/                 # Backend source
-│   ├── middleware/
-│   │   ├── auth.js        # JWT authentication
-│   │   └── rate-limit.js  # Rate limiting
-│   ├── models/
-│   │   ├── User.js
-│   │   └── Comment.js
-│   ├── routes/
-│   │   ├── auth.js        # Auth routes
-│   │   ├── vulnerable-auth.js  # Demo routes
-│   │   └── vulnerable-users.js # IDOR demo
-│   ├── scripts/
-│   │   └── seed.js        # Database seeder
-│   └── server.js          # Express entry point
-├── .gitignore
-├── package.json
-└── README.md
-```
+### Authentication
 
-## 🔒 Security Best Practices Demonstrated
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Create new account | No |
+| `POST` | `/api/auth/login` | Authenticate user | No |
+| `POST` | `/api/auth/logout` | Clear session | No |
+| `GET` | `/api/auth/me` | Get current user | Yes |
+
+### Comments
+
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| `GET` | `/api/comments` | List all comments | Yes |
+| `POST` | `/api/comments` | Post a comment | Yes |
+
+### Admin
+
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| `GET` | `/api/admin/secrets` | Get secret data (admin only) | Yes (admin) |
+
+### Vulnerability Demos
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/vulnerable/users` | List all users (no auth check) |
+| `GET` | `/api/vulnerable/users/:id` | Get user by ID (no ownership check) |
+| `GET` | `/api/vulnerable/secure/users` | List users (auth-gated) |
+| `GET` | `/api/vulnerable/secure/users/:id` | Get user (ownership verified) |
+| `POST` | `/api/vulnerable/login-demo` | Login vulnerable to NoSQL injection |
+| `POST` | `/api/vulnerable/login-secure` | Login with input sanitization |
+| `POST` | `/api/vulnerable/brute-force` | Login with no rate limit |
+| `POST` | `/api/vulnerable/brute-force-protected` | Login rate-limited to 5/min |
+
+---
+
+## Security Best Practices Demonstrated
 
 ### XSS Prevention
-- Use `textContent` instead of `innerHTML`
-- Sanitize with DOMPurify
-- Implement Content Security Policy (CSP)
-- HttpOnly cookies for sensitive tokens
+- Use React's default JSX text escaping (`{value}`) instead of `dangerouslySetInnerHTML`
+- Sanitize user input with DOMPurify
+- Implement Content Security Policy (CSP) headers via Helmet.js
+- Store tokens in HttpOnly cookies, not localStorage
 
 ### IDOR Prevention
-- Always verify user ownership/authorization
-- Use indirect references instead of database IDs
-- Implement proper access control checks
+- Verify resource ownership on every request (`req.user._id === resource.owner`)
+- Implement role-based access control (RBAC)
+- Return `403 Forbidden` for unauthorized access
 
 ### NoSQL Injection Prevention
-- Validate input types (reject objects for string fields)
+- Type-check inputs — reject objects where strings are expected
+- Strip MongoDB operators (`$gt`, `$ne`, `$regex`) from user input
 - Use parameterized queries
-- Sanitize MongoDB operators ($gt, $ne, etc.)
 
 ### Rate Limiting
-- Implement request limits per IP/user
-- Use exponential backoff
-- Account lockout after failed attempts
+- Limit login attempts per IP using `express-rate-limit` (5 per minute)
+- Return `429 Too Many Requests` with retry-after headers
+- Implement account lockout after repeated failures
 
-## ⚠️ Disclaimer
+---
 
-This project is for **educational purposes only**. The vulnerable implementations are intentionally insecure to demonstrate attack vectors. **DO NOT** use any vulnerable code patterns in production applications.
+## Design
 
-## 📄 License
+The UI uses a **"Cyber Command Center"** aesthetic — a dark, atmospheric interface with:
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Dark zinc-950 background** with scan-line overlays and grid patterns
+- **Cyan primary accent** (`#06b6d4`) for secure state, **crimson red** for vulnerable state
+- **JetBrains Mono** for terminal/code elements, **DM Sans** for body text
+- **shadcn/ui components** (Button, Card, Input, Badge, Alert) with custom variants
+- **Sidebar navigation** with animated security mode toggle
+- **Responsive** — sidebar collapses to hamburger menu on mobile
+- **Staggered fade-in animations** for page load delight
 
-## 👤 Author
+---
 
-**Your Name**
-- Final Year Project
-- University Name
+## Disclaimer
+
+> ⚠️ This project is for **educational purposes only**. The vulnerable implementations are intentionally insecure to demonstrate attack vectors. **DO NOT** use any vulnerable code patterns in production applications.
+
+---
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
 <p align="center">
-  <b>🛡️ Learn to hack responsibly, build securely! 🛡️</b>
+  <b>🛡️ Learn to hack responsibly. Build securely. 🛡️</b>
 </p>
