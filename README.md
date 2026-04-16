@@ -301,18 +301,9 @@ The UI uses a **"Cyber Command Center"** aesthetic — a dark, atmospheric inter
 
 ---
 
-## Disclaimer
-
-> ⚠️ This project is for **educational purposes only**. The vulnerable implementations are intentionally insecure to demonstrate attack vectors. **DO NOT** use any vulnerable code patterns in production applications.
-
----
 
 ## License
 
 MIT License — see [LICENSE](LICENSE) for details.
 
 ---
-
-<p align="center">
-  <b>🛡️ Learn to hack responsibly. Build securely. 🛡️</b>
-</p>
